@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+</head>
+<body onload="resetButton()">
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content">
+    <h1>Tic Tac Toe</h1>
+        <div id="intro">
+        <p>This is a <b>2</b> player game<br>
+        If you don't already know how to play...<br>
+        Then your childhood <i><b>SUCKED</b></i></p> <button class="ticButton" type="button" id="playGame" onclick="playTheGame()">START</button>
+        </div>
+    </div>
+    <div class="content" id="ticTable">
+        <table id="matrix">
+          <tr>
+            <td><button class="ticButton" id="b1" onclick="ticButton(b1)">1</button></td>
+            <td><button class="ticButton" id="b2" onclick="ticButton(b2)">2</button></td>
+            <td><button class="ticButton" id="b3" onclick="ticButton(b3)">3</button></td>
+          </tr>
+        
+          <tr>
+            <td><button class="ticButton" id="b4" onclick="ticButton(b4)">4</button></td>
+            <td><button class="ticButton" id="b5" onclick="ticButton(b5)">5</button></td>
+            <td><button class="ticButton" id="b6" onclick="ticButton(b6)">6</button></td>
+          </tr>
+          <tr>
+            <td><button class="ticButton" id="b7" onclick="ticButton(b7)">7</button></td>
+            <td><button class="ticButton" id="b8" onclick="ticButton(b8)">8</button></td>
+            <td><button class="ticButton" id="b9" onclick="ticButton(b9)">9</button></td>
+          </tr>
+        </table>
+      </div>
+    <script>
+            const remainingButtons = ["b1","b2","b3","b4","b5","b6","b7","b8","b9"]
+            // var currentButton = ""
+        function playTheGame()
+        {
+            document.getElementById("intro").style.display="none"
+            document.getElementById("ticTable").style.display="block"
+            for (let turnCounter = 0; turnCounter < 9; turnCounter++){
+                document.getElementById(remainingButtons[turnCounter]).innerHTML = " "
+            }
+            // const remainingButtons = ["b1","b2","b3","b4","b5","b6","b7","b8","b9"]
+            // for (let turnCounter = 0; turnCounter < 9; turnCounter++){
+            //     if (turnCounter % 2 == 0){
+            //         for (let iCount = 0; iCount < remainingButtons.length; iCount++){
+            //             document.getElementById(remainingButtons[iCount]).innerHTML = "X"
+            //         }
+            //     }
+            //     else {
+            //         for (let iCount = 0; iCount < remainingButtons.length; iCount++){
+            //             document.getElementById(remainingButtons[iCount]).innerHTML = "O"
+            //         }
+            //     }
+            // }
+        }
+let buttonCounter = 0
+let xTics = []
+let oTics = []
+        function ticButton(currentButton)
+        {
+            const button = currentButton.id
+            const position = button.replace('b', '')
+            // buttonCounter++
+            console.log(currentButton.id)
+            document.getElementById(currentButton.id).disabled = true
+                if (buttonCounter % 2 == 0){
+                    for (let iCount = 0; iCount < remainingButtons.length; iCount++){
+                        document.getElementById(currentButton.id).innerHTML = "X"
+                        document.getElementById(currentButton.id).style.backgroundColor = "black"
+                        let aCount = buttonCounter / 2
+                        // const xTics = []
+                        // const button = currentButton.id
+                        // const position = button.replace('b', '')
+                        xTics[aCount] = parseInt(position)
+                    }
+                }
+                else {
+                    for (let iCount = 0; iCount < remainingButtons.length; iCount++){
+                        document.getElementById(currentButton.id).innerHTML = "O"
+                        document.getElementById(currentButton.id).style.backgroundColor = "red"
+                        let aCount = (buttonCounter - 1) / 2
+                        oTics[aCount] = parseInt(position)
+                    }
+                }
+            
+            console.log(buttonCounter)
+            buttonCounter++
+            console.log(xTics)
+            console.log(oTics)
+            checkWin()
+        }
+
+        function checkWin(){
+            //let winningCombo2 = 
+            let winningCombos = ["123", "147", "159", "258", "357", "369", "456", "789"]
+            for (let wCount = 0; wCount < winningCombos.length; wCount++){
+                let variable = "winningCombo" + wCount
+                variable = winningCombos[wCount].split("")
+                console.log("variable[0] " + variable[0])
+                console.log(xTics.includes(variable[0]) == true)
+                console.log(xTics)
+                if (xTics.includes(variable[0]) && xTics.includes(variable[1]) && xTics.includes(variable[2])){
+                    alert("WE HAVE A WINNER")
+                }
+                else if (oTics.includes(variable[0]) && oTics.includes(variable[1]) && oTics.includes(variable[2])){
+                    alert("WE HAVE A WINNER")
+                }
+            }
+        }
+
+        function resetButton()
+        {
+            document.getElementById("intro").style.display="block"
+            document.getElementById("ticTable").style.display="none"
+        }
+        // function encodeMessage()
+        // {
+        //     document.getElementById("phraseForm").style.display="none"
+        //     document.getElementById("guessForms").style.display="block"
+        //     var ogPhrase = document.getElementById("ogPhrase").value
+        //     var codedPhrase = ""
+        //     var codedLetter
+        //     const alphabet = [" ","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+        //     var newAlphabet = []
+
+        //     let currentIndex = alphabet.length, randomIndex;
+
+        //     while (currentIndex != 0)
+        //     {
+        //         randomIndex = Math.floor(Math.random()*currentIndex)
+        //         currentIndex--
+
+        //         [alphabet[currentIndex], alphabet[randomIndex]] = [
+        //             alphabet[randomIndex], alphabet[currentIndex]
+        //         ];
+
+        //         return alphabet
+        //     }
+        //     console.log(alphabet)
+            // for(let letterPosition = 0; letterPosition < ogPhrase.length; letterPosition++) 
+            // {
+            //     console.log('letterPosition', letterPosition)
+            //     console.log('original', ogPhrase.length)
+            //     let randomPosition = Math.floor(Math.random() * 27)
+            //     newAlphabet.push(alphabet[randomPosition])
+            //     console.log(newAlphabet)
+            //     // if(ogPhrase[lettterPosition] == newAlphabet[letterPosition -1]){
+
+            // }
+            //trying to make the new alphabet randomized
+            // for (let letterPosition=0; letterPosition < alphabet.length; letterPosition++)
+            // {
+            //     let randomPosition = Math.floor(Math.random() * 27)
+            //     // console.log("random Position", randomPosition)
+            //     // console.log("alphabet[randomPos]", alphabet[randomPosition])
+            //     for (let checkNew=0; checkNew < newAlphabet.length; checkNew++)
+            //     {
+            //         if(newAlphabet.includes(alphabet[randomPosition]))
+            //         {
+            //             randomPosition = Math.floor(Math.random() * 27)
+            //         }
+            //     }
+            //     newAlphabet.push(alphabet[randomPosition])
+            //     //I want to check that I don't duplicate any letters
+            //     //for (let checkNew = 0; checkNew < alphabet.length; checkNew++)
+            //     //{
+            //     //    if (newAlphabet[checkNew] != newAlphabet.push(alphabet[randomPosition]))
+            //     //    {
+            //      //       newAlphabet = newAlphabet.push(alphabet[randomPosition])
+            //     //    }
+            //     //}
+//                console.log(newAlphabet)
+//             for (let letterCount=0; letterCount < ogPhrase.length; letterCount++)
+//             {
+//                 //returns the phrase letter by letter
+//                 let codedPhrase = codedPhrase + newAlphabet.charAt(letterCount)
+//             }
+//             // console.log(ogPhrase)
+//             // console.log(codedPhrase)
+//             // console.log(alphabet.length)
+//             // console.log(newAlphabet)
+//         } 
+//         function messageGuess()
+//         {
+            
+//         }
+//         function resetButton()
+//         {
+//             document.getElementById("intro").style.display="block"
+//             document.getElementById("phraseForm").style.display="none"
+//             document.getElementById("guessForms").style.display="none"
+//             document.getElementById("resultMessage").style.display="none"
+//         }
+//     </script>
+</body>
+</html>
